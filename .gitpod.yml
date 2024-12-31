@@ -11,11 +11,11 @@ ports:
     description: PEP Proxy
     port: 1027
     onOpen: ignore
-  - name: Tutorial App
+  - name: SCOPROYECTO App
     description: Web app displaying context data
     port: 3000
     onOpen: open-preview
-  - name: Tutorial Devices
+  - name: SCOPROYECTO Devices
     description: Dummy IoT Sensors over HTTP
     port: 3001
     onOpen: ignore
