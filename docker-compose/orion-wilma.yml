@@ -225,36 +225,6 @@ services:
     secrets:
       - my_secret_data
 
-#---------------------------------------------- NODERED
-nodered:
-    image: nodered/node-red:latest
-    container_name: nodered
-    restart: unless-stopped
-    ports:
-      - "1880:1880"        # HTTP (opcional, si no usas SSL directamente)
-      - "8443:8443"        # HTTPS
-    volumes:
-      - node-red-data:/data       # Datos persistentes de Node-RED
-      - ./certs:/certs:ro  # Certificados SSL
-    environment:
-      - TZ=Europe/Madrid
-#----------------------------------------------
-
-#----------------------------------------------Certificados
-certificate:
-    image: cert-gen
-    container_name: certificados
-    volumes:
-    - ./certs:/certs
-    environment:
-    - DOMAIN=127.0.0.1 # Se coloca el el localhost como dominio
-    - SUBJ_C=ES
-    - SUBJ_ST=Valencia
-    - SUBJ_L=Valencia
-    - SUBJ_O="Seguridad de las Cosas"
-    - SUBJ_OU=SCO
-#----------------------------------------------
-
 networks:
   default:
     labels:

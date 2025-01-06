@@ -107,7 +107,7 @@ startContainers () {
 stoppingContainers () {
 	export $(cat .env | grep "#" -v)
 	echo "Stopping running containers"
-	${dockerCmd} -f docker-compose/southport-wilma.yml down -v --remove-orphans
+	${dockerCmd} -f docker-compose/orion-wilma.yml down -v --remove-orphans # cambio de southport-wilma.yml por orion-wilma.yml
 }
 
 command="$1"

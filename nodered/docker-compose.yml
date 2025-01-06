@@ -1,0 +1,21 @@
+services:
+  #---------------------------------------------- NODERED
+  nodered:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: nodered-sco
+    container_name: noderedSCO
+    restart: unless-stopped
+    ports:
+      - "1880:1880"        # HTTP (opcional, si no usas SSL directamente)
+      - "8443:8443"        # HTTPS
+    volumes:
+      - nodered-data:/data       # Datos persistentes de Node-RED
+      - ./certs:/certs:ro        # Certificados SSL
+    environment:
+      - TZ=Europe/Madrid
+  #----------------------------------------------
+
+volumes:
+  nodered-data:
