@@ -318,7 +318,7 @@ LOCK TABLES `oauth_client` WRITE;
 INSERT INTO `oauth_client` VALUES
 ('tutorial-dckr-site-0000-xpresswebapp','FIWARE Tutorial',
   'FIWARE Application protected by OAuth2 and Keyrock',  'tutorial-dckr-site-0000-clientsecret',
-  'http://localhost:3000','http://localhost:3000/login',NULL,'default',
+  'http://68.221.171.63:3000','http://68.221.171.63:3000/login',NULL,'default',
   'authorization_code,implicit,password,client_credentials,refresh_token','code',NULL,NULL,NULL,'bearer,jwt,permanent', '51129f085f3e1a80'),
 ('trusted-dckr-app-0000-000000000000','Trusted Application',
   'Second application protected by OAuth2 and Keyrock','trusted-dckr-app-0000-clientsecret',

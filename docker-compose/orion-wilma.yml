@@ -72,7 +72,8 @@ services:
       - IDM_DB_HOST=mysql-db
       - IDM_DB_PASS_FILE=/run/secrets/my_secret_data
       - IDM_DB_USER=root
-      - IDM_HOST=http://localhost:${KEYROCK_PORT}
+      # - IDM_HOST=http://localhost:${KEYROCK_PORT}
+      - IDM_HOST=http://68.221.171.63:${KEYROCK_PORT}
       - IDM_PORT=${KEYROCK_PORT}
       - IDM_HTTPS_ENABLED=${IDM_HTTPS_ENABLED}
       - IDM_HTTPS_PORT=${KEYROCK_HTTPS_PORT}
@@ -170,12 +171,14 @@ services:
       - "TWITTER_CONSUMER_SECRET=<ADD_YOUR_CONSUMER_SECRET>"
       - "NGSI_LD_PREFIX="
       - "SECURE_ENDPOINTS=true"
-      - "KEYROCK_URL=http://localhost"
+      # - "KEYROCK_URL=http://localhost"
+      - "KEYROCK_URL=http://68.221.171.63"
       - "KEYROCK_IP_ADDRESS=http://172.18.1.5"
       - "KEYROCK_PORT=${KEYROCK_PORT}"
       - "KEYROCK_CLIENT_ID=tutorial-dckr-site-0000-xpresswebapp"
       - "KEYROCK_CLIENT_SECRET=tutorial-dckr-site-0000-clientsecret"
-      - "CALLBACK_URL=http://localhost:${SCOPROYECTO_APP_PORT}/login"
+      # - "CALLBACK_URL=http://localhost:${SCOPROYECTO_APP_PORT}/login"
+      - "CALLBACK_URL=http://68.221.171.63:${SCOPROYECTO_APP_PORT}/login"
   #--------------------------------
 
 
