@@ -1,0 +1,13 @@
+services:
+  certificate:
+    image: cert-gen
+    container_name: certificados
+    volumes:
+    - ./certs:/certs
+    environment:
+    - DOMAIN=127.0.0.1
+    - SUBJ_C=ES
+    - SUBJ_ST=Valencia
+    - SUBJ_L=Valencia
+    - SUBJ_O="Seguridad de las Cosas"
+    - SUBJ_OU=SCO
