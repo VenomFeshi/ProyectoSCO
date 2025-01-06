@@ -20,7 +20,7 @@ services:
       test: curl --fail -s http://orion:${ORION_PORT}/version || exit 1
       interval: 15s
 
-  # IoT-Agent is configured for the UltraLight Protocol
+  #-------------------------------- IOT AGENT ULTRALIGHT
   iot-agent:
     labels:
       org.fiware: 'SCOPROYECTO'
@@ -51,9 +51,9 @@ services:
       - IOTA_PROVIDER_URL=http://iot-agent:${IOTA_NORTH_PORT}
     healthcheck:
       interval: 15s
+  #--------------------------------
 
-
-  # Keyrock is an Identity Management Front-End
+  #-------------------------------- KEYROCK
   keyrock:
     labels:
       org.fiware: 'SCOPROYECTO'
@@ -84,9 +84,9 @@ services:
       - my_secret_data
     healthcheck:
       interval: 5s
+  #--------------------------------
 
-
-  # PEP Proxy for Orion
+  #-------------------------------- WILMA PEP PROXY
   orion-proxy:
     labels:
       org.fiware: 'SCOPROYECTO'
@@ -116,6 +116,7 @@ services:
       - PEP_PROXY_HTTPS_ENABLED=false
       - PEP_PROXY_AUTH_ENABLED=false
       - PEP_PROXY_IDM_SSL_ENABLED=false
+      # - PEP_PROXY_IDM_SSL_ENABLED=true
       - PEP_PROXY_IDM_PORT=${KEYROCK_PORT}
       - PEP_PROXY_APP_ID=tutorial-dckr-site-0000-xpresswebapp
       - PEP_PROXY_USERNAME=pep_proxy_00000000-0000-0000-0000-000000000000
@@ -125,8 +126,10 @@ services:
       - PEP_PROXY_PUBLIC_PATHS=/version
     healthcheck:
       interval: 50s
+  #--------------------------------
 
   # SCOPROYECTO acts as a series of dummy IoT Sensors over HTTP
+  #-------------------------------- SCOPROYECTO webpage principal
   SCOPROYECTO:
     labels:
       org.fiware: 'SCOPROYECTO'
@@ -173,7 +176,7 @@ services:
       - "KEYROCK_CLIENT_ID=tutorial-dckr-site-0000-xpresswebapp"
       - "KEYROCK_CLIENT_SECRET=tutorial-dckr-site-0000-clientsecret"
       - "CALLBACK_URL=http://localhost:${SCOPROYECTO_APP_PORT}/login"
-
+  #--------------------------------
 
 
   # Databases
@@ -221,6 +224,37 @@ services:
       - ../mysql-data:/docker-entrypoint-initdb.d/:ro
     secrets:
       - my_secret_data
+
+#---------------------------------------------- NODERED
+nodered:
+    image: nodered/node-red:latest
+    container_name: nodered
+    restart: unless-stopped
+    ports:
+      - "1880:1880"        # HTTP (opcional, si no usas SSL directamente)
+      - "8443:8443"        # HTTPS
+    volumes:
+      - node-red-data:/data       # Datos persistentes de Node-RED
+      - ./certs:/certs:ro  # Certificados SSL
+    environment:
+      - TZ=Europe/Madrid
+#----------------------------------------------
+
+#----------------------------------------------Certificados
+certificate:
+    image: cert-gen
+    container_name: certificados
+    volumes:
+    - ./certs:/certs
+    environment:
+    - DOMAIN=127.0.0.1 # Se coloca el el localhost como dominio
+    - SUBJ_C=ES
+    - SUBJ_ST=Valencia
+    - SUBJ_L=Valencia
+    - SUBJ_O="Seguridad de las Cosas"
+    - SUBJ_OU=SCO
+#----------------------------------------------
+
 networks:
   default:
     labels:
