@@ -33,22 +33,28 @@ services:
     networks:
       - default
     ports:
-      - "${IOTA_NORTH_PORT}:${IOTA_NORTH_PORT}" # localhost:4041
-      - "${IOTA_SOUTH_PORT}:${IOTA_SOUTH_PORT}" # localhost:7896
+      - "${IOTA_NORTH_PORT}:${IOTA_NORTH_PORT}" # localhost:4041 management
+      - "${IOTA_SOUTH_PORT}:${IOTA_SOUTH_PORT}" # localhost:7896 data
     environment:
-      - IOTA_CB_HOST=orion # name of the context broker to update context
-      - IOTA_CB_PORT=${ORION_PORT} # port the context broker listens on to update context
+      # IOT AGENT NODE LIB VARIABLES 
       - IOTA_NORTH_PORT=${IOTA_NORTH_PORT}
+      - IOTA_PROVIDER_URL=http://iot-agent:${IOTA_NORTH_PORT}
+    # MONGO DB IOT DATABASE
       - IOTA_REGISTRY_TYPE=mongodb #Whether to hold IoT device info in memory or in a database
-      - IOTA_LOG_LEVEL=DEBUG # The log level of the IoT Agent
-      - IOTA_TIMESTAMP=true # Supply timestamp information with each measurement
-      - IOTA_CB_NGSI_VERSION=v2 # use NGSIv2 when sending updates for active attributes
-      - IOTA_AUTOCAST=true # Ensure Ultralight number values are read as numbers not strings
       - IOTA_MONGO_HOST=mongo-db # The host name of MongoDB
       - IOTA_MONGO_PORT=${MONGO_DB_PORT} # The port mongoDB is listening on
       - IOTA_MONGO_DB=iotagentul # The name of the database used in mongoDB
+    #ORION VARIABLES
+      - IOTA_CB_HOST=orion # name of the context broker to update context
+      - IOTA_CB_PORT=${ORION_PORT} # port the context broker listens on to update context
+    #IOT AGENT JSON VARIABLES
       - IOTA_HTTP_PORT=${IOTA_SOUTH_PORT} # The port used for device traffic over HTTP
-      - IOTA_PROVIDER_URL=http://iot-agent:${IOTA_NORTH_PORT}
+    # MORE ENVIRONMENT VARIABLES
+      - IOTA_LOG_LEVEL=DEBUG # The log level of the IoT Agent
+      - IOTA_TIMESTAMP=true # Supply timestamp information with each measurement
+      - IOTA_CB_NGSI_VERSION=v2 # use NGSIv2 when sending updates for active attributes
+    #VARIABLES DE ENTORNO CON PROTOCOLO ULTRALIGHT
+      # - IOTA_AUTOCAST=true # Ensure Ultralight number values are read as numbers not strings
     healthcheck:
       interval: 15s
   #--------------------------------
@@ -106,6 +112,8 @@ services:
       - "${ORION_PROXY_PORT}:${ORION_PROXY_PORT}" # localhost:1027
     expose:
       - "${ORION_PROXY_PORT}"
+    volumes:
+      - ./certs:/certs
     environment:
       - DEBUG=pep-proxy:*
       - PEP_PROXY_DEBUG=true

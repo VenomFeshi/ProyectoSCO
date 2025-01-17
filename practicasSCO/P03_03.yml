@@ -1,0 +1,69 @@
+services:
+  keyrock-db:
+    image: mysql:5.7
+    restart: always
+    expose:
+      - "3306"
+    volumes:
+      - ./keyrock-db:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=secret
+  keyrock:
+    depends_on:
+      - keyrock-db
+    image: fiware/idm:8.4.0
+    ports:
+      - 3005:3005
+      - 3443:3443
+    environment:
+      - DEBUG=idm:*
+      - IDM_HOST=http://192.168.0.35:3005
+      - IDM_PORT=3005
+      - IDM_HTTPS_PORT=3443
+      - IDM_DB_HOST=keyrock-db
+      - IDM_DB_USER=root
+      - IDM_DB_PASS=secret
+      - IDM_ADMIN_USER=admin
+      - IDM_ADMIN_EMAIL=admin@test.com
+      - IDM_ADMIN_PASS=test
+  orion-db:
+    image: mongo:latest
+    restart: unless-stopped
+    expose:
+      - "27017"
+    volumes:
+      - ./orion-db/data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+  orion:
+    image: fiware/orion:4.1.0
+    restart: unless-stopped
+    ports:
+      - 1026:1026
+    environment:
+      - ORION_MONGO_URI=mongodb://root:root@orion-db:27017
+      - ORION_INSECURE_NOTIF=true
+      - ORION_PORT=1026
+  wilma:
+    depends_on:
+      - keyrock
+    image: fiware/pep-proxy:8.4.0
+    ports:
+      - 1028:1028
+    environment:
+      - PEP_PROXY_PDP=idm
+      - PEP_PROXY_PORT=1028
+      - PEP_PROXY_HTTPS_ENABLED=false
+      - PEP_PROXY_AUTH_ENABLED=true
+      - PEP_PROXY_APP_ID=e0015c42-f62f-4f08-868e-447170ed9495
+      - PEP_PROXY_USERNAME=pep_proxy_ef3e293c-7b0d-4d8f-a570-1e1852f147fe
+      - PEP_PASSWORD=pep_proxy_c4dcfc1f-cde1-4a94-a183-d048516d51fa
+      - PEP_PROXY_IDM_SSL_ENABLED=false
+      # KEYROCK
+      - PEP_PROXY_IDM_HOST=keyrock
+      - PEP_PROXY_IDM_PORT=3005
+      #ORION
+      - PEP_PROXY_APP_HOST=orion
+      - PEP_PROXY_APP_PORT=1026
+networks: {}
