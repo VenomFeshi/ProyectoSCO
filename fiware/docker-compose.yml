@@ -6,6 +6,7 @@ services:
     image: fiware/orion:${ORION_VERSION}
     hostname: orion
     container_name: fiware-orion
+    restart: unless-stopped
     depends_on:
       - mongo-db
     networks:
@@ -16,6 +17,10 @@ services:
     ports:
       - "${ORION_PORT}:${ORION_PORT}" # localhost:1026
     command: -dbURI mongodb://mongo-db -logLevel DEBUG
+    environment:
+      # - ORION_MONGO_URI=mongodb://root:root@mongo-db:27017
+      - ORION_INSECURE_NOTIF=true
+      - ORION_PORT=${ORION_PORT}
     healthcheck:
       test: curl --fail -s http://orion:${ORION_PORT}/version || exit 1
       interval: 15s
@@ -44,6 +49,9 @@ services:
       - IOTA_MONGO_HOST=mongo-db # The host name of MongoDB
       - IOTA_MONGO_PORT=${MONGO_DB_PORT} # The port mongoDB is listening on
       - IOTA_MONGO_DB=iotagentul # The name of the database used in mongoDB
+    # CREDENCIALES MONGO DB
+      # - MONGO_INITDB_ROOT_USERNAME=root
+      # - MONGO_INITDB_ROOT_PASSWORD=root
     #ORION VARIABLES
       - IOTA_CB_HOST=orion # name of the context broker to update context
       - IOTA_CB_PORT=${ORION_PORT} # port the context broker listens on to update context
@@ -79,7 +87,7 @@ services:
     environment:
       - DEBUG=idm:*
       - IDM_DB_HOST=mysql-db
-      - IDM_DB_PASS_FILE=/run/secrets/my_secret_data
+      - IDM_DB_PASS=secret
       - IDM_DB_USER=root
       - IDM_HOST=http://localhost:${KEYROCK_PORT}
       - IDM_PORT=${KEYROCK_PORT}
@@ -90,8 +98,6 @@ services:
       - IDM_ADMIN_EMAIL=alice-the-admin@test.com
       - IDM_ADMIN_PASS=test
       - IDM_CSP_FORM_ACTION=*
-    secrets:
-      - my_secret_data
     healthcheck:
       interval: 5s
   #--------------------------------
@@ -143,7 +149,7 @@ services:
   #--------------------------------
 
   # SCOPROYECTO acts as a series of dummy IoT Sensors over HTTP
-  #-------------------------------- SCOPROYECTO webpage principal
+  # -------------------------------- SCOPROYECTO webpage principal
   SCOPROYECTO:
     labels:
       org.fiware: 'SCOPROYECTO'
@@ -208,6 +214,9 @@ services:
       - default
     volumes:
       - mongo-db:/data
+    # environment:
+    #   - MONGO_INITDB_ROOT_USERNAME=root
+    #   - MONGO_INITDB_ROOT_PASSWORD=root
     healthcheck:
       test: ["CMD","mongosh", "--eval", "db.adminCommand('ping')"]
       interval: 5s
@@ -231,13 +240,29 @@ services:
       default:
         ipv4_address: 172.18.1.6
     environment:
-      - "MYSQL_ROOT_PASSWORD_FILE=/run/secrets/my_secret_data"
+      - "MYSQL_ROOT_PASSWORD=secret"
       - "MYSQL_ROOT_HOST=172.18.1.5" # Allow Keyrock to access this database
     volumes:
       - mysql-db:/var/lib/mysql
       - ../mysql-data:/docker-entrypoint-initdb.d/:ro
-    secrets:
-      - my_secret_data
+
+ #---------------------------------------------- NODERED
+  nodered:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: nodered-sco
+    container_name: noderedSCO
+    restart: unless-stopped
+    ports:
+      - "1880:1880"        # HTTP (opcional, si no usas SSL directamente)
+      - "8443:8443"        # HTTPS
+    volumes:
+      - nodered-data:/data       # Datos persistentes de Node-RED
+      - ./certs:/certs:ro        # Certificados SSL
+    environment:
+      - TZ=Europe/Madrid
+  #----------------------------------------------
 
 networks:
   default:
@@ -249,7 +274,4 @@ networks:
 volumes:
   mysql-db: ~
   mongo-db: ~
-
-secrets:
-  my_secret_data:
-    file: ../secrets.txt
+  nodered-data:
