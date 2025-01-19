@@ -7,21 +7,21 @@ config.pep_port = 80;
 // Set this var to undefined if you don't want the server to listen on HTTPS
 config.https = {
   enabled: true,
-  cert_file: '/opt/fiware-pep-proxy/certs/127.0.0.1/127.0.0.1.crt',
-  key_file: '/opt/fiware-pep-proxy/certs/127.0.0.1/127.0.0.1.key',
+  cert_file: 'cert/cert.crt',
+  key_file: 'cert/key.key',
   port: 443,
 };
 
 config.idm = {
-    host: 'keyrock',
-    port: 3443,
-    ssl: true,
-  };
+  host: 'localhost',
+  port: 3000,
+  ssl: false,
+};
 
 config.app = {
-  host: 'nodered',
-  port: '8443',
-  ssl: true, // Use true if the app server listens in https
+  host: 'www.fiware.org',
+  port: '80',
+  ssl: false, // Use true if the app server listens in https
 };
 
 config.organizations = {

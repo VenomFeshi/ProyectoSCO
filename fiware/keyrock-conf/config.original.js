@@ -12,9 +12,9 @@ config.registration = {
 
 // HTTPS enable
 config.https = {
-  enabled: true,
-  cert_file: '/opt/fiware-idm/certs/127.0.0.1/127.0.0.1.crt',
-  key_file: '/opt/fiware-idm/certs/127.0.0.1/127.0.0.1.key',
+  enabled: false,
+  cert_file: 'certs/idm-2018-cert.pem',
+  key_file: 'certs/idm-2018-key.pem',
   ca_certs: [],
   port: 443
 };
@@ -109,7 +109,7 @@ config.usage_control = {
 config.database = {
   host: 'localhost',
   password: 'keyrock2020',
-  username: 'root',
+  username: 'idm',
   database: 'idm',
   dialect: 'mysql',
   port: undefined

@@ -24,6 +24,32 @@
         "env": []
     },
     {
+        "id": "2bc450449f3a8cef",
+        "type": "telegram bot",
+        "botname": "t.me/Proyectosco_bot",
+        "usernames": "",
+        "chatids": "",
+        "baseapiurl": "",
+        "testenvironment": false,
+        "updatemode": "polling",
+        "pollinterval": 300,
+        "usesocks": false,
+        "sockshost": "",
+        "socksprotocol": "socks5",
+        "socksport": 6667,
+        "socksusername": "anonymous",
+        "sockspassword": "",
+        "bothost": "",
+        "botpath": "",
+        "localbotport": 8443,
+        "publicbotport": 8443,
+        "privatekey": "",
+        "certificate": "",
+        "useselfsignedcertificate": false,
+        "sslterminated": false,
+        "verboselogging": false
+    },
+    {
         "id": "99aebcd78c1fc320",
         "type": "inject",
         "z": "f817f6a7671b1a08",
@@ -31,7 +57,7 @@
         "props": [
             {
                 "p": "keyrock_ip",
-                "v": "192.168.0.35",
+                "v": "68.221.171.63",
                 "vt": "str"
             },
             {
@@ -337,7 +363,7 @@
         "props": [
             {
                 "p": "iota_ip",
-                "v": "192.168.0.35",
+                "v": "68.221.171.63",
                 "vt": "str"
             },
             {
@@ -626,7 +652,7 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "{\"services\":[{\"apikey\":\"34879\",\"cbroker\":\"http://192.168.0.35:1026\",\"entity_type\":\"Sensor\",\"resource\":\"/iot/json\"}]}",
+        "payload": "{\"services\":[{\"apikey\":\"34879\",\"cbroker\":\"https://68.221.171.63:1026\",\"entity_type\":\"Sensor\",\"resource\":\"/iot/json\"}]}",
         "payloadType": "json",
         "x": 200,
         "y": 340,
@@ -785,7 +811,7 @@
             {
                 "p": "api_key",
                 "v": "api_key",
-                "vt": "str"
+                "vt": "flow"
             }
         ],
         "repeat": "",
@@ -1467,10 +1493,10 @@
         "payload": "{\"glucose_001\":0,\"battery_001\":50}",
         "payloadType": "json",
         "x": 200,
-        "y": 1160,
+        "y": 1180,
         "wires": [
             [
-                "a979b20a7b5672ec"
+                "5675bfe9d2cea6cb"
             ]
         ]
     },
@@ -1509,7 +1535,7 @@
                 "valueValue": "application/json"
             }
         ],
-        "x": 410,
+        "x": 610,
         "y": 1180,
         "wires": [
             [
@@ -1525,7 +1551,7 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 750,
+        "x": 890,
         "y": 1220,
         "wires": [
             [
@@ -1546,7 +1572,7 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 940,
+        "x": 1060,
         "y": 1180,
         "wires": []
     },
@@ -1568,7 +1594,7 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 590,
+        "x": 770,
         "y": 1180,
         "wires": [
             [
@@ -1583,75 +1609,10 @@
         "id": "6e0fa1035c157295",
         "type": "comment",
         "z": "92d8fd98132b13ea",
-        "name": "Actualizar valor glucosa 0 y batería 50 - Sensor 1",
+        "name": "Valores aleatorios glucosa y batería Sensor 1",
         "info": "",
-        "x": 280,
+        "x": 270,
         "y": 1120,
-        "wires": []
-    },
-    {
-        "id": "0b0be8ae90f3ff06",
-        "type": "inject",
-        "z": "92d8fd98132b13ea",
-        "name": "execute request",
-        "props": [
-            {
-                "p": "iota_ip",
-                "v": "iota_ip",
-                "vt": "flow"
-            },
-            {
-                "p": "iota_puerto_datos",
-                "v": "iota_puerto_datos",
-                "vt": "flow"
-            },
-            {
-                "p": "fiware_service",
-                "v": "fiware_service",
-                "vt": "flow"
-            },
-            {
-                "p": "fiware_servicepath",
-                "v": "fiware_servicepath",
-                "vt": "flow"
-            },
-            {
-                "p": "api_key",
-                "v": "api_key",
-                "vt": "flow"
-            },
-            {
-                "p": "device_id",
-                "v": "sensor001",
-                "vt": "str"
-            },
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "{\"glucose_001\":1,\"battery_001\":25}",
-        "payloadType": "json",
-        "x": 200,
-        "y": 1200,
-        "wires": [
-            [
-                "a979b20a7b5672ec"
-            ]
-        ]
-    },
-    {
-        "id": "5a116cb68991e0e7",
-        "type": "comment",
-        "z": "92d8fd98132b13ea",
-        "name": "Actualizar valor glucosa 1 y batería 25 - Sensor 1",
-        "info": "",
-        "x": 280,
-        "y": 1240,
         "wires": []
     },
     {
@@ -1702,10 +1663,10 @@
         "payload": "{\"glucose_002\":0,\"battery_002\":50}",
         "payloadType": "json",
         "x": 200,
-        "y": 1360,
+        "y": 1380,
         "wires": [
             [
-                "32dbbe4b64bcb3df"
+                "51ed3345ee58e0a7"
             ]
         ]
     },
@@ -1744,7 +1705,7 @@
                 "valueValue": "application/json"
             }
         ],
-        "x": 410,
+        "x": 610,
         "y": 1380,
         "wires": [
             [
@@ -1760,7 +1721,7 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 750,
+        "x": 910,
         "y": 1420,
         "wires": [
             [
@@ -1781,7 +1742,7 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 940,
+        "x": 1080,
         "y": 1380,
         "wires": []
     },
@@ -1803,7 +1764,7 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 590,
+        "x": 770,
         "y": 1380,
         "wires": [
             [
@@ -1818,75 +1779,10 @@
         "id": "f484a019722523a7",
         "type": "comment",
         "z": "92d8fd98132b13ea",
-        "name": "Actualizar valor glucosa 0 y batería 50 - Sensor 2",
+        "name": "Valores aleatorios glucosa y batería Sensor 2",
         "info": "",
-        "x": 280,
-        "y": 1320,
-        "wires": []
-    },
-    {
-        "id": "c8a67eb65b249f95",
-        "type": "inject",
-        "z": "92d8fd98132b13ea",
-        "name": "execute request",
-        "props": [
-            {
-                "p": "iota_ip",
-                "v": "iota_ip",
-                "vt": "flow"
-            },
-            {
-                "p": "iota_puerto_datos",
-                "v": "iota_puerto_datos",
-                "vt": "flow"
-            },
-            {
-                "p": "fiware_service",
-                "v": "fiware_service",
-                "vt": "flow"
-            },
-            {
-                "p": "fiware_servicepath",
-                "v": "fiware_servicepath",
-                "vt": "flow"
-            },
-            {
-                "p": "api_key",
-                "v": "api_key",
-                "vt": "flow"
-            },
-            {
-                "p": "device_id",
-                "v": "sensor002",
-                "vt": "str"
-            },
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "{\"glucose_002\":1,\"battery_002\":25}",
-        "payloadType": "json",
-        "x": 200,
-        "y": 1400,
-        "wires": [
-            [
-                "32dbbe4b64bcb3df"
-            ]
-        ]
-    },
-    {
-        "id": "f7c6aeeaa4101a3b",
-        "type": "comment",
-        "z": "92d8fd98132b13ea",
-        "name": "Actualizar valor glucosa y batería 25 - Sensor 2",
-        "info": "",
-        "x": 280,
-        "y": 1440,
+        "x": 270,
+        "y": 1340,
         "wires": []
     },
     {
@@ -1933,7 +1829,7 @@
             {
                 "p": "api_key",
                 "v": "api_key",
-                "vt": "str"
+                "vt": "flow"
             },
             {
                 "p": "payload"
@@ -1944,7 +1840,7 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "{\t    \"cbroker\": \"http://192.168.0.35:1026\",\t    \"trust\": $globalContext(\"oauth2-token\")\t}",
+        "payload": "{\t    \"cbroker\": \"https://68.221.171.63:1026\",\t    \"trust\": $globalContext(\"oauth2-token\")\t}",
         "payloadType": "jsonata",
         "x": 200,
         "y": 500,
@@ -2065,7 +1961,7 @@
         "z": "92d8fd98132b13ea",
         "name": "Subscriptions",
         "info": "",
-        "x": 110,
+        "x": 150,
         "y": 1720,
         "wires": []
     },
@@ -2082,7 +1978,8 @@
         "y": 1760,
         "wires": [
             [
-                "86d19bd5d0e5b9df"
+                "86d19bd5d0e5b9df",
+                "f44554a83168223d"
             ]
         ]
     },
@@ -2269,7 +2166,7 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "{\"description\":\"Notify me of all glucoseLevel and battery changes\",\"subject\":{\"entities\":[{\"idPattern\":\"urn:ngsi-ld:Sensor:.*\",\"type\":\"Sensor\"}],\"condition\":{\"attrs\":[\"glucoseLevel\",\"battery\"]}},\"notification\":{\"http\":{\"url\":\"https://192.168.0.35:1880/orion/updates\"},\"attrs\":[\"glucoseLevel\",\"battery\"]},\"expires\":\"2026-12-31T23:59:59.00Z\",\"throttling\":1}",
+        "payload": "{\"description\":\"Notify me of all glucoseLevel and battery changes\",\"subject\":{\"entities\":[{\"idPattern\":\"urn:ngsi-ld:Sensor:.*\",\"type\":\"Sensor\"}],\"condition\":{\"attrs\":[\"glucoseLevel\",\"battery\"]}},\"notification\":{\"http\":{\"url\":\"https://68.221.171.63:1880/orion/updates\"},\"attrs\":[\"glucoseLevel\",\"battery\"]},\"expires\":\"2026-12-31T23:59:59.00Z\",\"throttling\":1}",
         "payloadType": "json",
         "x": 180,
         "y": 2040,
@@ -2589,6 +2486,362 @@
         ]
     },
     {
+        "id": "f44554a83168223d",
+        "type": "function",
+        "z": "92d8fd98132b13ea",
+        "name": "function 1",
+        "func": "const sensorData = msg.payload.data[0]; // Extrae los datos del primer sensor\nconst glucose = sensorData.glucoseLevel.value; // Nivel de glucosa\nconst battery = sensorData.battery.value; // Nivel de batería\nconst sensorId = sensorData.id; // ID del sensor\n\n// Define los límites para glucosa y batería\nconst glucoseSafeRange = { min: 70, max: 180 }; // Rango seguro para glucosa\nconst batterySafeLevel = 20; // Nivel mínimo aceptable de batería\n\n// Determinar si hay alarmas\nlet alerts = [];\nif (glucose < glucoseSafeRange.min || glucose > glucoseSafeRange.max) {\n    alerts.push(`⚠️ *Nivel de Glucosa fuera de rango:* ${glucose}`);\n}\nif (battery < batterySafeLevel) {\n    alerts.push(`⚠️ *Batería baja:* ${battery}%`);\n}\n\n// Generar mensaje de alerta\nlet alertMessage = alerts.length > 0 ? alerts.join('\\n') : \"✅ Todos los valores están dentro del rango seguro.\";\n\nmsg.payload = {\n    chatId: \"7569490995\", // Chat ID de Telegram\n    type: \"message\",\n    content: `🔔 *Alerta de Sensor*\\n\\n📡 Sensor ID: ${sensorId}\\n📊 Nivel de Glucosa: ${glucose}\\n🔋 Batería: ${battery}%\\n\\n${alertMessage}`\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 1820,
+        "wires": [
+            [
+                "e1ba95a1c7f1d568"
+            ]
+        ]
+    },
+    {
+        "id": "d02579649e414ba8",
+        "type": "telegram receiver",
+        "z": "92d8fd98132b13ea",
+        "name": "Mensaje Telegram",
+        "bot": "2bc450449f3a8cef",
+        "saveDataDir": "",
+        "filterCommands": false,
+        "x": 850,
+        "y": 1820,
+        "wires": [
+            [
+                "a81ff16e514fd24e"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "a81ff16e514fd24e",
+        "type": "debug",
+        "z": "92d8fd98132b13ea",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1040,
+        "y": 1820,
+        "wires": []
+    },
+    {
+        "id": "e1ba95a1c7f1d568",
+        "type": "telegram sender",
+        "z": "92d8fd98132b13ea",
+        "name": "",
+        "bot": "2bc450449f3a8cef",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 610,
+        "y": 1820,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f99757692a40b92e",
+        "type": "function",
+        "z": "92d8fd98132b13ea",
+        "name": "function 2",
+        "func": "// Generar un valor de glucosa aleatorio entre 70 y 180 (rango típico)\nconst glucoseLevel = Math.floor(Math.random() * (180 - 70 + 1)) + 70;\n\n// Generar un nivel de batería aleatorio entre 10% y 100%\nconst batteryLevel = Math.floor(Math.random() * (100 - 10 + 1)) + 10;\n\n// Crear el mensaje simulado para el sensor\nmsg.payload = {\n    id: \"urn:ngsi-ld:Sensor:001\", // ID del sensor\n    glucoseLevel: glucoseLevel,   // Nivel de glucosa\n    battery: batteryLevel         // Nivel de batería\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 2360,
+        "wires": [
+            [
+                "ce518ccb603d34b1"
+            ]
+        ]
+    },
+    {
+        "id": "6ede698f8a449834",
+        "type": "switch",
+        "z": "92d8fd98132b13ea",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "empty"
+            },
+            {
+                "t": "nempty"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 710,
+        "y": 2340,
+        "wires": [
+            [
+                "e76cbaf6d39e4e75"
+            ],
+            [
+                "09f89153032b1f2e"
+            ]
+        ]
+    },
+    {
+        "id": "09f89153032b1f2e",
+        "type": "json",
+        "z": "92d8fd98132b13ea",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 870,
+        "y": 2380,
+        "wires": [
+            [
+                "e76cbaf6d39e4e75"
+            ]
+        ]
+    },
+    {
+        "id": "e76cbaf6d39e4e75",
+        "type": "debug",
+        "z": "92d8fd98132b13ea",
+        "name": "delete subscription",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1070,
+        "y": 2320,
+        "wires": []
+    },
+    {
+        "id": "aba63769c8c81ec9",
+        "type": "inject",
+        "z": "92d8fd98132b13ea",
+        "name": "execute request",
+        "props": [
+            {
+                "p": "iota_ip",
+                "v": "iota_ip",
+                "vt": "flow"
+            },
+            {
+                "p": "iota_puerto_datos",
+                "v": "iota_puerto_datos",
+                "vt": "flow"
+            },
+            {
+                "p": "fiware_service",
+                "v": "fiware_service",
+                "vt": "flow"
+            },
+            {
+                "p": "fiware_servicepath",
+                "v": "fiware_servicepath",
+                "vt": "flow"
+            },
+            {
+                "p": "api_key",
+                "v": "api_key",
+                "vt": "flow"
+            },
+            {
+                "p": "device_id",
+                "v": "sensor001",
+                "vt": "str"
+            },
+            {
+                "p": "timestamp",
+                "v": "",
+                "vt": "date"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 120,
+        "y": 2360,
+        "wires": [
+            [
+                "f99757692a40b92e"
+            ]
+        ]
+    },
+    {
+        "id": "ce518ccb603d34b1",
+        "type": "http request",
+        "z": "92d8fd98132b13ea",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://{{{iota_ip}}}:{{{iota_puerto_datos}}}/iot/json?k={{{api_key}}}&i={{{device_id}}}",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [
+            {
+                "keyType": "other",
+                "keyValue": "Fiware-Service",
+                "valueType": "msg",
+                "valueValue": "fiware_service"
+            },
+            {
+                "keyType": "other",
+                "keyValue": "Fiware-ServicePath",
+                "valueType": "msg",
+                "valueValue": "fiware_servicepath"
+            },
+            {
+                "keyType": "other",
+                "keyValue": "Content-Type",
+                "valueType": "other",
+                "valueValue": "application/json"
+            }
+        ],
+        "x": 530,
+        "y": 2340,
+        "wires": [
+            [
+                "6ede698f8a449834"
+            ]
+        ]
+    },
+    {
+        "id": "c495a03218c8e1e0",
+        "type": "inject",
+        "z": "92d8fd98132b13ea",
+        "name": "execute request",
+        "props": [
+            {
+                "p": "iota_ip",
+                "v": "iota_ip",
+                "vt": "flow"
+            },
+            {
+                "p": "iota_puerto_datos",
+                "v": "iota_puerto_datos",
+                "vt": "flow"
+            },
+            {
+                "p": "fiware_service",
+                "v": "fiware_service",
+                "vt": "flow"
+            },
+            {
+                "p": "fiware_servicepath",
+                "v": "fiware_servicepath",
+                "vt": "flow"
+            },
+            {
+                "p": "api_key",
+                "v": "api_key",
+                "vt": "flow"
+            },
+            {
+                "p": "device_id",
+                "v": "sensor001",
+                "vt": "str"
+            },
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"glucose_001\":0,\"battery_001\":50}",
+        "payloadType": "json",
+        "x": 120,
+        "y": 2480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8437d3e1ac55968d",
+        "type": "debug",
+        "z": "92d8fd98132b13ea",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 660,
+        "y": 2480,
+        "wires": []
+    },
+    {
+        "id": "5675bfe9d2cea6cb",
+        "type": "function",
+        "z": "92d8fd98132b13ea",
+        "name": "Valores aleatorios",
+        "func": "// Determinar el rango de glucosa basado en probabilidades\nlet glucoseLevel;\nconst glucoseChance = Math.random();\n\nif (glucoseChance < 0.7) {\n    // 70% de probabilidad de estar dentro del rango típico (80-180)\n    glucoseLevel = Math.random() < 0.5 \n        ? Math.floor(Math.random() * (130 - 80 + 1)) + 80  // Ayunas (80-130)\n        : Math.floor(Math.random() * (180 - 130 + 1)) + 130; // Después de comer (130-180)\n} else {\n    // 30% de probabilidad de estar fuera del rango típico (190-250)\n    glucoseLevel = Math.floor(Math.random() * (250 - 190 + 1)) + 190;\n}\n\n// Generar el nivel de batería\nlet batteryLevel;\nconst batteryChance = Math.random();\n\nif (batteryChance < 0.8) {\n    // 80% de probabilidad de estar en un rango normal (20-100)\n    batteryLevel = Math.floor(Math.random() * (100 - 20 + 1)) + 20;\n} else {\n    // 20% de probabilidad de estar en un rango crítico (5-19)\n    batteryLevel = Math.floor(Math.random() * (19 - 5 + 1)) + 5;\n}\n\n// Crear el mensaje simulado para el sensor\nmsg.payload = {\n    glucose_001: glucoseLevel,\n    battery_001: batteryLevel\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 1180,
+        "wires": [
+            [
+                "a979b20a7b5672ec"
+            ]
+        ]
+    },
+    {
+        "id": "51ed3345ee58e0a7",
+        "type": "function",
+        "z": "92d8fd98132b13ea",
+        "name": "Valores aleatorios",
+        "func": "// Determinar el rango de glucosa basado en probabilidades\nlet glucoseLevel;\nconst glucoseChance = Math.random();\n\nif (glucoseChance < 0.7) {\n    // 70% de probabilidad de estar dentro del rango típico (80-180)\n    glucoseLevel = Math.random() < 0.5 \n        ? Math.floor(Math.random() * (130 - 80 + 1)) + 80  // Ayunas (80-130)\n        : Math.floor(Math.random() * (180 - 130 + 1)) + 130; // Después de comer (130-180)\n} else {\n    // 30% de probabilidad de estar fuera del rango típico (190-250)\n    glucoseLevel = Math.floor(Math.random() * (250 - 190 + 1)) + 190;\n}\n\n// Generar el nivel de batería\nlet batteryLevel;\nconst batteryChance = Math.random();\n\nif (batteryChance < 0.8) {\n    // 80% de probabilidad de estar en un rango normal (20-100)\n    batteryLevel = Math.floor(Math.random() * (100 - 20 + 1)) + 20;\n} else {\n    // 20% de probabilidad de estar en un rango crítico (5-19)\n    batteryLevel = Math.floor(Math.random() * (19 - 5 + 1)) + 5;\n}\n\n// Crear el mensaje simulado para el sensor\nmsg.payload = {\n    glucose_002: glucoseLevel,\n    battery_002: batteryLevel\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 1380,
+        "wires": [
+            [
+                "32dbbe4b64bcb3df"
+            ]
+        ]
+    },
+    {
         "id": "8478081292e8f75a",
         "type": "inject",
         "z": "7054fec8bee5107d",
@@ -2596,7 +2849,7 @@
         "props": [
             {
                 "p": "orion_ip",
-                "v": "192.168.0.35",
+                "v": "68.221.171.63",
                 "vt": "str"
             },
             {
@@ -3273,12 +3526,12 @@
             },
             {
                 "p": "entity_id",
-                "v": "urn:ngsi-ld:Lamp:001",
+                "v": "urn:ngsi-ld:Sensor:001",
                 "vt": "str"
             },
             {
                 "p": "attr",
-                "v": "on",
+                "v": "glucose",
                 "vt": "str"
             },
             {

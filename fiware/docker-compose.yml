@@ -18,7 +18,6 @@ services:
       - "${ORION_PORT}:${ORION_PORT}" # localhost:1026
     command: -dbURI mongodb://mongo-db -logLevel DEBUG
     environment:
-      # - ORION_MONGO_URI=mongodb://root:root@mongo-db:27017
       - ORION_INSECURE_NOTIF=true
       - ORION_PORT=${ORION_PORT}
     healthcheck:
@@ -49,9 +48,6 @@ services:
       - IOTA_MONGO_HOST=mongo-db # The host name of MongoDB
       - IOTA_MONGO_PORT=${MONGO_DB_PORT} # The port mongoDB is listening on
       - IOTA_MONGO_DB=iotagentul # The name of the database used in mongoDB
-    # CREDENCIALES MONGO DB
-      # - MONGO_INITDB_ROOT_USERNAME=root
-      # - MONGO_INITDB_ROOT_PASSWORD=root
     #ORION VARIABLES
       - IOTA_CB_HOST=orion # name of the context broker to update context
       - IOTA_CB_PORT=${ORION_PORT} # port the context broker listens on to update context
@@ -61,8 +57,6 @@ services:
       - IOTA_LOG_LEVEL=DEBUG # The log level of the IoT Agent
       - IOTA_TIMESTAMP=true # Supply timestamp information with each measurement
       - IOTA_CB_NGSI_VERSION=v2 # use NGSIv2 when sending updates for active attributes
-    #VARIABLES DE ENTORNO CON PROTOCOLO ULTRALIGHT
-      # - IOTA_AUTOCAST=true # Ensure Ultralight number values are read as numbers not strings
     healthcheck:
       interval: 15s
   #--------------------------------
@@ -81,21 +75,21 @@ services:
       - mysql-db
     ports:
       - "${KEYROCK_PORT}:${KEYROCK_PORT}" # localhost:3005
+      - "${KEYROCK_HTTPS_PORT}:${KEYROCK_HTTPS_PORT}" # HTTPS
     volumes:
       - ./certs:/opt/fiware-idm/certs/
-      # - ./keyrock-conf:/opt/fiware-idm
+      - ./keyrock-conf/config.js:/opt/fiware-idm/config.js
     environment:
       - DEBUG=idm:*
       - IDM_DB_HOST=mysql-db
       - IDM_DB_PASS=secret
       - IDM_DB_USER=root
-      - IDM_HOST=http://localhost:${KEYROCK_PORT}
+      - IDM_HOST=https://keyrock:${KEYROCK_PORT}
       - IDM_PORT=${KEYROCK_PORT}
-      # - IDM_HTTPS_ENABLED=${IDM_HTTPS_ENABLED}
-      - IDM_HTTPS_ENABLED=${IDM_HTTPS_ENABLED}
+      - IDM_HTTPS_ENABLED=true
       - IDM_HTTPS_PORT=${KEYROCK_HTTPS_PORT}
       - IDM_ADMIN_USER=alice
-      - IDM_ADMIN_EMAIL=alice-the-admin@test.com
+      - IDM_ADMIN_EMAIL=admin@test.com
       - IDM_ADMIN_PASS=test
       - IDM_CSP_FORM_ACTION=*
     healthcheck:
@@ -120,19 +114,21 @@ services:
         condition: on-failure
     ports:
       - "${ORION_PROXY_PORT}:${ORION_PROXY_PORT}" # localhost:1027
+      # - "443:443"
     expose:
       - "${ORION_PROXY_PORT}"
     volumes:
-      - ./certs:/certs/
+      - ./certs:/opt/fiware-pep-proxy/certs
+      - ./wilma-conf/config.js:/opt/fiware-pep-proxy/config.js
     environment:
       - DEBUG=pep-proxy:*
       - PEP_PROXY_PDP=idm
       - PEP_PROXY_DEBUG=true
       - PEP_PROXY_PORT=${ORION_PROXY_PORT}
-      - PEP_PROXY_HTTPS_ENABLED=false
-      - PEP_PROXY_AUTH_ENABLED=false
-      - PEP_PROXY_IDM_SSL_ENABLED=false
-      # - PEP_PROXY_IDM_SSL_ENABLED=true
+      - PEP_PROXY_AUTH_ENABLED=true
+      - PEP_PROXY_HTTPS_ENABLED=true
+      - PEP_PROXY_IDM_SSL_ENABLED=true
+      # AUTENTIFICACION CON KEYROCK
       - PEP_PROXY_APP_ID=tutorial-dckr-site-0000-xpresswebapp
       - PEP_PROXY_USERNAME=pep_proxy_00000000-0000-0000-0000-000000000000
       - PEP_PASSWORD=test
@@ -140,7 +136,7 @@ services:
       - PEP_PROXY_PUBLIC_PATHS=/version
       #KEYROCK
       - PEP_PROXY_IDM_HOST=keyrock
-      - PEP_PROXY_IDM_PORT=${KEYROCK_PORT}
+      - PEP_PROXY_IDM_PORT=${KEYROCK_HTTPS_PORT}
       #ORION
       - PEP_PROXY_APP_HOST=orion
       - PEP_PROXY_APP_PORT=${ORION_PORT}
@@ -148,7 +144,6 @@ services:
       interval: 50s
   #--------------------------------
 
-  # SCOPROYECTO acts as a series of dummy IoT Sensors over HTTP
   # -------------------------------- SCOPROYECTO webpage principal
   SCOPROYECTO:
     labels:
@@ -198,7 +193,6 @@ services:
       - "CALLBACK_URL=http://localhost:${SCOPROYECTO_APP_PORT}/login"
   #--------------------------------
 
-
   # Databases
   mongo-db:
     labels:
@@ -214,9 +208,6 @@ services:
       - default
     volumes:
       - mongo-db:/data
-    # environment:
-    #   - MONGO_INITDB_ROOT_USERNAME=root
-    #   - MONGO_INITDB_ROOT_PASSWORD=root
     healthcheck:
       test: ["CMD","mongosh", "--eval", "db.adminCommand('ping')"]
       interval: 5s
